@@ -1376,7 +1376,8 @@ theorem comapₗ_apply {β} [MeasurableSpace α] {mβ : MeasurableSpace β} (f :
 #align measure_theory.measure.comapₗ_apply MeasureTheory.Measure.comapₗ_apply
 
 /-- Pullback of a `Measure`. If `f` sends each measurable set to a null-measurable set,
-then for each measurable set `s` we have `comap f μ s = μ (f '' s)`. -/
+then for each measurable set `s` we have `comap f μ s = μ (f '' s)`.
+Note that if `f` is not injective, this definition assigns `Set.univ` measure zero. -/
 def comap [MeasurableSpace α] (f : α → β) (μ : Measure β) : Measure α :=
   if hf : Injective f ∧ ∀ s, MeasurableSet s → NullMeasurableSet (f '' s) μ then
     (OuterMeasure.comap f μ.toOuterMeasure).toMeasure fun s hs t => by
