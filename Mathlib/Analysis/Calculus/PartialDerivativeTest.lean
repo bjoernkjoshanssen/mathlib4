@@ -124,7 +124,6 @@ noncomputable def continuousBilinearMap_of_continuousMultilinearMap
 noncomputable def continuousBilinearMap_of_continuousMultilinearMapGENERAL
     {𝕜 : Type*} [NontriviallyNormedField 𝕜] [CompleteSpace 𝕜]
     {V : Type*} [NormedAddCommGroup V] [NormedSpace 𝕜 V] [FiniteDimensional 𝕜 V]
-    {W : Type*} [NormedAddCommGroup W] [NormedSpace 𝕜 W]
     (g : ContinuousMultilinearMap 𝕜 (fun _ : Fin 2 => V) 𝕜) : V →L[𝕜] V →L[𝕜] 𝕜 := {
   toFun := fun x => {
     toFun := fun y => g.toFun ![x,y]
