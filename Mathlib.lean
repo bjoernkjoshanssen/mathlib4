@@ -1679,6 +1679,7 @@ public import Mathlib.Analysis.Calculus.MeanValue
 public import Mathlib.Analysis.Calculus.Monotone
 public import Mathlib.Analysis.Calculus.ParametricIntegral
 public import Mathlib.Analysis.Calculus.ParametricIntervalIntegral
+public import Mathlib.Analysis.Calculus.PartialDerivativeTest
 public import Mathlib.Analysis.Calculus.Rademacher
 public import Mathlib.Analysis.Calculus.SmoothSeries
 public import Mathlib.Analysis.Calculus.TangentCone
@@ -4814,6 +4815,7 @@ public import Mathlib.LinearAlgebra.Projectivization.Action
 public import Mathlib.LinearAlgebra.Projectivization.Basic
 public import Mathlib.LinearAlgebra.Projectivization.Cardinality
 public import Mathlib.LinearAlgebra.Projectivization.Constructions
+public import Mathlib.LinearAlgebra.Projectivization.GLAction
 public import Mathlib.LinearAlgebra.Projectivization.Independence
 public import Mathlib.LinearAlgebra.Projectivization.Subspace
 public import Mathlib.LinearAlgebra.QuadraticForm.Basic
