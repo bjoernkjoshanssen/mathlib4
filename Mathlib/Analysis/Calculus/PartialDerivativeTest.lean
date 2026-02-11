@@ -3,10 +3,12 @@ Copyright (c) 2025 Bjørn Kjos-Hanssen. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Bjørn Kjos-Hanssen
 -/
-import Mathlib.Analysis.Calculus.Gradient.Basic
-import Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries
-import Mathlib.LinearAlgebra.QuadraticForm.Basic
-import Mathlib.Analysis.Calculus.FDeriv.Analytic
+module
+
+public import Mathlib.Analysis.Calculus.Gradient.Basic
+public import Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries
+public import Mathlib.LinearAlgebra.QuadraticForm.Basic
+public import Mathlib.Analysis.Calculus.FDeriv.Analytic
 
 /-!
 # The Second Partial Derivatives Test
@@ -26,6 +28,8 @@ analytic functions `f : V → ℝ`, where `V` is a finite-dimensional vector spa
 ## Tags
 partial derivative test, calculus
 -/
+
+@[expose] public section
 
 /-- Update a vector of length 2 in coordinate 0. -/
 @[simp]
@@ -222,7 +226,7 @@ theorem le_of_littleO {V : Type*}
   have rev_ineq {a b c d : ℝ} (h : a + b ≤ c + d) (h' : d ≤ b) : a ≤ c := by
     linarith
   refine rev_ineq ?_ <| mul_le_mul_of_nonneg_right (by convert hx using 2) (show 0 ≤ 1/2 by simp)
-  simp only [range_succ, range_zero, insert_empty_eq, one_div, mem_insert, OfNat.ofNat_ne_one,
+  simp only [range_add_one, range_zero, insert_empty_eq, one_div, mem_insert, OfNat.ofNat_ne_one,
     mem_singleton, OfNat.ofNat_ne_zero, or_self, not_false_eq_true, sum_insert, factorial_two,
     cast_ofNat, one_ne_zero, factorial_one, cast_one, inv_one, iteratedFDeriv_one_apply, map_sub,
     one_mul, sum_singleton, factorial_zero, iteratedFDeriv_zero_apply, Real.norm_eq_abs] at h₁
@@ -272,10 +276,8 @@ theorem littleO_of_powerseries.aux
     C * (a * (‖x - x₀‖ / (r / 2))) ^ 3 ≤ D * ‖x - x₀‖ ^ 2 := by
   convert @inequality ‖x-x₀‖ (2/r) (by aesop) a ha C hC D
     (le_of_lt (by
-      simp at hx
-      convert hx using 1
-      exact mem_sphere_iff_norm.mp rfl
-      )) using 2
+      rw [Metric.mem_ball, mem_sphere_iff_norm.mpr rfl] at hx
+      exact hx)) using 2
   ring_nf
 
 theorem littleO_of_powerseries.calculation {V : Type*} [NormedAddCommGroup V]
