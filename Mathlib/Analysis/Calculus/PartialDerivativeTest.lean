@@ -205,7 +205,11 @@ lemma coercive_of_posdef {V : Type*} [NormedAddCommGroup V] [NormedSpace ℝ V]
         (iteratedFDeriv ℝ 2 f x₀).map_update_smul' ![‖u‖⁻¹ • u,u] 1 ‖u‖⁻¹ u
       simp only [MultilinearMap.toFun_eq_coe, coe_coe, smul_eq_mul] at h₂
       rw [iteratedFDeriv_two_mul, mul_comm, ← h₂]
-      exact hm.2 (‖u‖⁻¹ • u) (by rw [norm_smul];field_simp)
+      exact hm.2 (‖u‖⁻¹ • u) (by
+        rw [← h₁, norm_smul, mul_comm]
+        congr
+        refine Real.norm_of_nonneg ?_
+        simp)
 
 theorem le_of_littleO {V : Type*}
     [NormedAddCommGroup V] [InnerProductSpace ℝ V]
