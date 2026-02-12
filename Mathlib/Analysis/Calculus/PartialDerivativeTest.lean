@@ -120,22 +120,6 @@ noncomputable def continuousBilinearMap_of_continuousMultilinearMap
   cont := continuous_clm_apply.mpr fun x => g.cont.comp'
     <| continuous_id'.matrixVecCons continuous_const}
 
-/-- A continuous multilinear map is bilinear. -/
-noncomputable def continuousBilinearMap_of_continuousMultilinearMapGENERAL
-    {𝕜 : Type*} [NontriviallyNormedField 𝕜] [CompleteSpace 𝕜]
-    {V : Type*} [NormedAddCommGroup V] [NormedSpace 𝕜 V] [FiniteDimensional 𝕜 V]
-    (g : ContinuousMultilinearMap 𝕜 (fun _ : Fin 2 => V) 𝕜) : V →L[𝕜] V →L[𝕜] 𝕜 := {
-  toFun := fun x => {
-    toFun := fun y => g.toFun ![x,y]
-    map_add' := fun a b => by simpa [update₁] using g.map_update_add ![x,b] 1 a b
-    map_smul' := fun m a => by simpa [update₁] using g.map_update_smul ![x,a] 1 m a
-    cont := g.cont.comp' <| continuous_const.matrixVecCons
-            <| continuous_id'.matrixVecCons continuous_const}
-  map_add' := fun a b => by ext c; simpa [update₀] using g.map_update_add ![a,c] 0 a b
-  map_smul' := fun c x => by ext y; simpa [update₀] using g.map_update_smul ![x,y] 0 c x
-  cont := continuous_clm_apply.mpr fun x => g.cont.comp'
-    <| continuous_id'.matrixVecCons continuous_const}
-
 /-- The iterated Frechet derivative is continuous. -/
 theorem continuous_hessian' {k : ℕ} {V : Type*} [NormedAddCommGroup V] [NormedSpace ℝ V]
     (f : V → ℝ) (x₀ : V) : Continuous fun y => (iteratedFDeriv ℝ k f x₀) fun _ => y :=
@@ -148,18 +132,6 @@ theorem continuous_hessian {V : Type*} [NormedAddCommGroup V] [NormedSpace ℝ V
   convert continuous_hessian' (k := 2) f x₀ using 3
   ext i
   fin_cases i <;> simp
-
-@[nontriviality]
-lemma isCoercive.of_subsingleton {V : Type*} [Subsingleton V]
-    [NormedAddCommGroup V] [NormedSpace ℝ V]
-    (F : V →L[ℝ] V →L[ℝ] ℝ) : IsCoercive F := by
-  use 1
-  constructor
-  · simp
-  · intro u
-    rw [Subsingleton.eq_zero u]
-    simp
-
 
 theorem iteratedFDeriv_two_mul {V : Type*} [NormedAddCommGroup V] [NormedSpace ℝ V]
     {f : V → ℝ} {x₀ : V} (u : V) (r : ℝ) :
